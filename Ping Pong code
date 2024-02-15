@@ -1,0 +1,54 @@
+from pygame import *
+from random import *
+
+class GameSprite(sprite.Sprite):
+    def __init__(self,player_image,player_x,player_y,size_x,size_y,player_speed):
+        super().__init__()
+        self.image = transform.scale(image.load(player_image),(size_x,size_y))
+        self.speed =player_speed
+        self.rect = self.image.get_rect()
+        self.rect.x = player_x
+        self.rect.y = player_y
+    def reset(self):
+        window.blit(self.image,(self.rect.x,self.rect.y))
+
+class Player(GameSprite):
+    def update(self):
+        key_pressed = key.get_pressed()
+        if key_pressed[K_LEFT] and self.rect.x>5:
+            self.rect.x-=self.speed
+        if key_pressed[K_RIGHT] and self.rect.x<695:
+            self.rect.x+=self.speed
+    def update_l(self):
+        keys = key.get_pressed()
+        if keys[K_w]
+    def fire(self):
+        bullet = Bullet('bullet.png',self.rect.centerx,self.rect.top,15,20,-15)
+        bullets.add(bullet)
+
+win_width = 700
+win_height = 500
+window = display.set_mode((700,500))
+display.set_caption('Ping Pong')
+blue = (32,178,170)
+window.fill(blue)
+clock = time.Clock()
+racket1 = Player('racket.png',100,20,40,120,3)
+racket2 = Player('racket.png',400,50,40,120,3)
+
+game=True
+finish=False
+FPS=60
+while game:
+    for e in event.get():
+        if e.type == QUIT:
+            game=True
+    window.fill(blue)
+    racket1.update()
+    racket1.reset()
+    racket2.update()
+    racket2.reset()
+    display.update()
+    clock.tick(FPS)
+
+            
